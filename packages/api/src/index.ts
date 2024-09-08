@@ -23,6 +23,7 @@ app.get("/metrics", printMetrics);
 const todoRouter = new Hono()
   .basePath("/todo")
   .get("/", async (c) => {
+    console.log(c.req);
     try {
       const todos = await db
         .select()
@@ -53,6 +54,7 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
+      console.log(c.req);
       const validated = c.req.valid("json");
       try {
         const todo = await db
@@ -97,6 +99,7 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
+      console.log(c.req);
       const validated = c.req.valid("json");
       const { id } = c.req.param();
       try {
@@ -143,6 +146,7 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
+      console.log(c.req);
       const id = c.req.param("id");
       try {
         await db.delete(todosTable).where(eq(todosTable.id, id));
