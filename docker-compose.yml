@@ -4,27 +4,38 @@ services:
       context: .
       dockerfile: packages/api/Dockerfile
     ports:
-      - "3000:3000"
+      - "8080:8080"
     develop:
       watch:
         - path: ./packages/api
-          action: sync
+          action: rebuild
           target: /app/packages/api
           ignore:
             - node_modules/
         - path: ./packages/database
-          action: sync
+          action: rebuild
           target: /app/packages/database
           ignore:
             - node_modules/
-        - path: ./packages/api/package.json
-          action: rebuild
     env_file:
       - .env.prod
     depends_on:
       - migrator
     networks:
       - internal_network
+  web:
+    build:
+      context: .
+      dockerfile: packages/web/Dockerfile
+    ports:
+      - "3000:3000"
+    develop:
+       watch:
+        - path: ./packages/web
+          action: rebuild
+          target: /app/packages/web
+          ignore:
+            - node_modules/
 
   migrator:
     build:

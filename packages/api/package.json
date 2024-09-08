@@ -1,6 +1,9 @@
 {
   "name": "api",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsup --config tsup.config.ts",
@@ -11,16 +14,19 @@
   "dependencies": {
     "@hono/node-server": "^1.12.2",
     "@hono/prometheus": "^1.0.1",
+    "@hono/swagger-ui": "^0.4.1",
+    "@hono/zod-validator": "^0.2.2",
     "database": "workspace:*",
     "dotenv": "^16.4.5",
     "hono": "^4.5.11",
     "postgres": "^3.4.4",
-    "prom-client": "^15.1.3"
+    "prom-client": "^15.1.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.16.5",
     "tsup": "^8.2.4",
-    "tsx": "^4.7.1",
+    "tsx": "^4.19.0",
     "typescript": "^5.5.4"
   }
 }
