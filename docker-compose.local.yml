@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: packages/api/Dockerfile
+    ports:
+      - "8080:8080"
     develop:
       watch:
         - path: ./packages/api
@@ -15,6 +17,8 @@ services:
           target: /app/packages/database
           ignore:
             - node_modules/
+    env_file:
+      - .env.local
     depends_on:
       - migrator
     networks:
@@ -23,6 +27,8 @@ services:
     build:
       context: .
       dockerfile: packages/web/Dockerfile
+    ports:
+      - "3000:3000"
     develop:
        watch:
         - path: ./packages/web
@@ -35,6 +41,8 @@ services:
     build:
       context: .
       dockerfile: packages/database/Dockerfile.migrator
+    env_file:
+      - .env.local
     depends_on:
       - db
     networks:
@@ -44,10 +52,16 @@ services:
     image: postgres:16
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    env_file:
+      - .env.local
     networks:
       - internal_network
   db-admin:
     image: dpage/pgadmin4
+    ports:
+      - "80:80"
+    env_file:
+      - .env.local
     depends_on:
       - db
     networks:
