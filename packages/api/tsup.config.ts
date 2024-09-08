@@ -5,6 +5,5 @@ export default defineConfig({
   format: ["cjs"],
   target: "node20",
   outDir: "dist",
-  minify: true,
-  noExternal: [/(.*)/],
+  noExternal: ["database"],
 });

@@ -2,15 +2,12 @@
   "name": "database",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts"
     }
   },
   "scripts": {
-    "build": "tsup --config tsup.config.ts",
     "db:dev": "sh db.sh",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -25,7 +22,6 @@
     "postgres": "^3.4.4"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.24.2",
-    "tsup": "^8.2.4"
+    "drizzle-kit": "^0.24.2"
   }
 }
