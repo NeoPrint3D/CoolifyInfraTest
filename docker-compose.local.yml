@@ -17,18 +17,20 @@ services:
           target: /app/packages/database
           ignore:
             - node_modules/
+        - path: .env.local
+          action: rebuild
     env_file:
       - .env.local
     depends_on:
       - migrator
-    networks:
-      - internal_network
   web:
     build:
       context: .
       dockerfile: packages/web/Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - API_HOST_URL=http://api:8080
     develop:
        watch:
         - path: ./packages/web
@@ -36,7 +38,8 @@ services:
           target: /app/packages/web
           ignore:
             - node_modules/
-
+        - path: .env.local
+          action: rebuild
   migrator:
     build:
       context: .
@@ -45,17 +48,15 @@ services:
       - .env.local
     depends_on:
       - db
-    networks:
-      - internal_network
 
   db:
     image: postgres:16
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     env_file:
       - .env.local
-    networks:
-      - internal_network
   db-admin:
     image: dpage/pgadmin4
     ports:
@@ -64,12 +65,7 @@ services:
       - .env.local
     depends_on:
       - db
-    networks:
-      - internal_network
 
-networks:
-  internal_network:
-    driver: bridge
 
 volumes:
   postgres-data:
