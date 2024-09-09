@@ -16,7 +16,7 @@ app.use("*", registerMetrics);
 app.use(
   "*",
   cors({
-    origin: [process.env.WEB_APP_URL!, "http://localhost:3000"],
+    origin: [process.env.WEB_HOST_URL!, "http://localhost:3000"],
   })
 );
 
