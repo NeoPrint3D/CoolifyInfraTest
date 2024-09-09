@@ -50,9 +50,9 @@
 <script setup lang="ts">
 import { todosTable } from "database/schema";
 import { toast, Toaster } from "vue-sonner";
-import { client } from "~/lib/hono";
-
+import { getApiClient } from "./lib/hono";
 const title = shallowRef("");
+const client = getApiClient();
 
 const {
   data: todos,
