@@ -4,9 +4,5 @@ import type { AppType } from "api";
 export const getApiClient = () => {
   const config = useRuntimeConfig();
 
-  return hc<AppType>(
-    config.public.apiUrl
-      ? `${config.public.apiUrl}/api`
-      : "http://localhost:8080/api"
-  );
+  return hc<AppType>("https://msggo80kgk4w80w8sgosgkw4.theneocorner.com/api");
 };
