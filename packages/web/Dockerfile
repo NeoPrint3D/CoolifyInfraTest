@@ -27,6 +27,8 @@ COPY packages/api ./packages/api
 
 # Build the Nuxt application
 WORKDIR /app/packages/web
+ARG NUXT_PUBLIC_API_HOST_URL
+ENV NUXT_PUBLIC_API_HOST_URL=${NUXT_PUBLIC_API_HOST_URL}
 RUN pnpm run build
 
 # Stage 3: Runner
