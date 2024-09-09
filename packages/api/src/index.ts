@@ -1,7 +1,8 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { prometheus } from "@hono/prometheus";
-import { db, desc, eq, todosTable } from "database";
+import { db, desc, eq } from "database";
+import { todosTable } from "database/schema";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { cors } from "hono/cors";
@@ -15,7 +16,7 @@ app.use("*", registerMetrics);
 app.use(
   "*",
   cors({
-    origin: process.env.WEB_HOST_URL || "http://localhost:3000",
+    origin: [process.env.WEB_APP_URL!, "http://localhost:3000"],
   })
 );
 
@@ -23,7 +24,6 @@ app.get("/metrics", printMetrics);
 const todoRouter = new Hono()
   .basePath("/todo")
   .get("/", async (c) => {
-    console.log(c.req);
     try {
       const todos = await db
         .select()
@@ -54,7 +54,6 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
-      console.log(c.req);
       const validated = c.req.valid("json");
       try {
         const todo = await db
@@ -99,7 +98,6 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
-      console.log(c.req);
       const validated = c.req.valid("json");
       const { id } = c.req.param();
       try {
@@ -146,7 +144,6 @@ const todoRouter = new Hono()
       })
     ),
     async (c) => {
-      console.log(c.req);
       const id = c.req.param("id");
       try {
         await db.delete(todosTable).where(eq(todosTable.id, id));

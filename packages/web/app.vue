@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import type { todosTable } from "database";
+import { todosTable } from "database/schema";
 import { toast, Toaster } from "vue-sonner";
 import { client } from "~/lib/hono";
 
@@ -58,16 +58,22 @@ const {
   data: todos,
   status,
   refresh,
-} = await useAsyncData("todos", async () => {
-  try {
-    const response = await client.todo.$get();
-    const data = await response.json();
-    return data.todos as unknown as (typeof todosTable.$inferSelect)[];
-  } catch (error) {
-    toast.error("Failed to fetch todos");
-    return [];
+} = await useAsyncData(
+  "todos",
+  async () => {
+    try {
+      const response = await client.todo.$get();
+      const data = await response.json();
+      return data.todos as unknown as (typeof todosTable.$inferSelect)[];
+    } catch (error) {
+      toast.error("Failed to fetch todos");
+      return [];
+    }
+  },
+  {
+    server: false,
   }
-});
+);
 
 async function addTodo() {
   if (!title.value.trim()) return;

@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "exports": {
-    ".": {
-      "import": "./src/index.ts"
-    }
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
   },
   "scripts": {
     "db:dev": "sh db.sh",
