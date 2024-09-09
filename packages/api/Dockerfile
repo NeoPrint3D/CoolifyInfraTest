@@ -25,6 +25,9 @@ COPY packages/database ./packages/database
 
 # Build the application
 WORKDIR /app/packages/api
+
+ARG NUXT_PUBLIC_API_HOST_URL
+ENV NUXT_PUBLIC_API_HOST_URL=${NUXT_PUBLIC_API_HOST_URL}
 RUN pnpm run build
 
 # Prune development dependencies
