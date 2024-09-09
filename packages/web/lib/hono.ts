@@ -5,5 +5,7 @@ export const getApiClient = () => {
   const config = useRuntimeConfig();
   console.log("API_URL", config.apiUrl);
 
-  return hc<AppType>("https://msggo80kgk4w80w8sgosgkw4.theneocorner.com/api");
+  return hc<AppType>(
+    config.apiUrl ? `${config.apiUrl}/api` : "http://localhost:8080/api"
+  );
 };
