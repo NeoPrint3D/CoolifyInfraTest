@@ -47,11 +47,6 @@ services:
 
   db-admin:
     image: dpage/pgadmin4
-    depends_on:
-      - db
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   postgres-data:
-  pgadmin-data:
