@@ -6,4 +6,4 @@ const apiUrl = process.env.API_HOST_URL
   : "http://localhost:8080/api";
 console.log(apiUrl);
 
-export const client = hc<AppType>(apiUrl);
+export const client = hc<AppType>(`${process.env.API_HOST_URL}/api`);
